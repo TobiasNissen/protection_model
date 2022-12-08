@@ -1,0 +1,14 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "protection_model"
+version = "1.0.0"
+description = "This library contains protection models for different operating systems and utilities for patching ELF files with access rights."
+authors = [{name = "Tobias Thornfeldt Nissen", email = "tobias.nissen@gmail.com"}]
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dependencies = [
+    "pathlib"
+]
