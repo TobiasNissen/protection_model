@@ -9,17 +9,20 @@ class SeL4CPAccessRight(AccessRight):
     
 class SchedulingAccessRight(SeL4CPAccessRight):
     priority: int
+    mcp: int
     budget: int
     period: int
     
-    def __init__(self, priority: int, budget: int, period: int):
+    def __init__(self, priority: int, mcp: int, budget: int, period: int):
         self.type_id = 0
         self.priority = priority
+        self.mcp = mcp
         self.budget = budget
         self.period = period
         
     def serialize_metadata(self) -> bytes:
         return serialize_8_bit_int(self.priority) + \
+               serialize_8_bit_int(self.mcp) + \
                serialize_64_bit_int(self.budget) + \
                serialize_64_bit_int(self.period)
     
