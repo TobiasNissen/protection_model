@@ -12,7 +12,12 @@ class AccessRight(ABC):
         """
             Serializes this access right.
         """
-        return self.serialize_type_id() + self.serialize_metadata()
+        type_id = self.serialize_type_id();
+        metadata = self.serialize_metadata()
+        if metadata is None:
+            return type_id
+        else:
+            return type_id + metadata
         
         
     @abstractmethod
@@ -32,7 +37,7 @@ class AccessRight(ABC):
         
         
     @abstractmethod
-    def serialize_metadata(self) -> bytes:
+    def serialize_metadata(self) -> bytes | None:
         """
             Serializes the metadata of this access right.
         """
