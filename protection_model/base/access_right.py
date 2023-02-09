@@ -12,7 +12,7 @@ class AccessRight(ABC):
         """
             Serializes this access right.
         """
-        type_id = self.serialize_type_id();
+        type_id = self.serialize_type_id()
         metadata = self.serialize_metadata()
         if metadata is None:
             return type_id
