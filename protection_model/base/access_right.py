@@ -4,9 +4,8 @@ class AccessRight(ABC):
     """
         An abstract access right in a protection model.
         
-        Each concrete subclass should have a unique type id.
+        Each concrete subclass should have a unique type_id.
     """
-    type_id: int
     
     def serialize(self) -> bytes:
         """
