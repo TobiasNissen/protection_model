@@ -1,5 +1,6 @@
 from ..base.access_right import AccessRight
 from ..utilities.serialization import serialize_8_bit_int, serialize_64_bit_int
+from .constants import SCHEDULING_TYPE_ID, CHANNEL_TYPE_ID, MEMORY_REGION_TYPE_ID, IRQ_TYPE_ID
 
 
 class SeL4CPAccessRight(AccessRight):
@@ -8,13 +9,8 @@ class SeL4CPAccessRight(AccessRight):
     
     
 class SchedulingAccessRight(SeL4CPAccessRight):
-    priority: int
-    mcp: int
-    budget: int
-    period: int
-    
     def __init__(self, priority: int, mcp: int, budget: int, period: int):
-        self.type_id = 0
+        self.type_id = SCHEDULING_TYPE_ID
         self.priority = priority
         self.mcp = mcp
         self.budget = budget
@@ -27,16 +23,12 @@ class SchedulingAccessRight(SeL4CPAccessRight):
                serialize_64_bit_int(self.period)
     
     
-class ChannelAccessRight(SeL4CPAccessRight):
-    target_pd_id: int           # the id of the targeted PD.
-    target_pd_channel_id: int   # the ID used by the targeted PD for the channel
-    own_channel_id: int         # the ID used by the current PD for the channel.
-    
+class ChannelAccessRight(SeL4CPAccessRight):    
     def __init__(self, target_pd_id: int, target_pd_channel_id: int, own_channel_id: int):
-        self.type_id = 1
-        self.target_pd_id = target_pd_id
-        self.target_pd_channel_id = target_pd_channel_id
-        self.own_channel_id = own_channel_id
+        self.type_id = CHANNEL_TYPE_ID
+        self.target_pd_id = target_pd_id # the id of the targeted PD.
+        self.target_pd_channel_id = target_pd_channel_id # the ID used by the targeted PD for the channel.
+        self.own_channel_id = own_channel_id # the ID used by the current PD for the channel.
         
     def serialize_metadata(self) -> bytes:
         return serialize_8_bit_int(self.target_pd_id) + \
@@ -45,14 +37,8 @@ class ChannelAccessRight(SeL4CPAccessRight):
 
 
 class MemoryRegionAccessRight(SeL4CPAccessRight):
-    memory_region_page_cap_index: int
-    vaddr: int
-    size: int
-    perms: int
-    cached: bool
-    
     def __init__(self, memory_region_page_cap_index: int, vaddr: int, size: int, perms: int, cached: bool):
-        self.type_id = 2
+        self.type_id = MEMORY_REGION_TYPE_ID
         self.memory_region_page_cap_index = memory_region_page_cap_index
         self.vaddr = vaddr
         self.size = size
@@ -68,11 +54,8 @@ class MemoryRegionAccessRight(SeL4CPAccessRight):
 
 
 class IrqAccessRight(SeL4CPAccessRight):
-    parent_irq_channel_id: int
-    own_irq_channel_id: int
-    
     def __init__(self, parent_irq_channel_id: int, own_irq_channel_id: int):
-        self.type_id = 3
+        self.type_id = IRQ_TYPE_ID
         self.parent_irq_channel_id = parent_irq_channel_id
         self.own_irq_channel_id = own_irq_channel_id
         
