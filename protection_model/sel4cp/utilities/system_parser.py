@@ -11,7 +11,7 @@ from typing import Optional
 from .system_description import MemoryRegion, Channel, Map, Irq, ProtectionDomain, SystemDescription
 from .xml_utilities import LineNumberingParser, InvalidSystemFormat, InvalidXmlElement, MissingAttribute, checked_lookup, get_attribute_or_default
 
-from ..sel4cp.constants import EXECUTABLE_FLAG, WRITABLE_FLAG, READABLE_FLAG
+from ..constants import EXECUTABLE_FLAG, WRITABLE_FLAG, READABLE_FLAG
 
 
 def parse_memory_region(memory_region_xml: ET.Element) -> MemoryRegion:
@@ -90,6 +90,8 @@ def parse_protection_domain(protection_domain_xml: ET.Element, parent_pd_id: Opt
             irqs.append(parse_irq(child))
         elif child.tag == "program_image":
             continue # we ignore the program image
+        elif child.tag == "protection_domain_control":
+            continue # we ignore the protection_domain_control element
         else:
             raise InvalidXmlElement(child, "Invalid tag for the child of a protection domain")
     

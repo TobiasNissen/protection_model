@@ -6,10 +6,10 @@ from .access_rights_parser import parse_access_rights
 from .access_rights_prompter import get_access_rights
 from ...utilities.elf_patcher import patch_elf
 
-if __name__ == "__main__":
+def set_up_access_rights():
     num_args = len(sys.argv)
     if num_args != 3 and num_args != 4:
-        print(f"Usage: python3 set_up_access_rights.py <target_ELF_file> <system_configuration_file> [<ELF_access_rights_file>]")
+        sys.exit(f"Usage: python3 set_up_access_rights.py <target_ELF_file> <system_configuration_file> [<ELF_access_rights_file>]")
     
     target_elf = Path(sys.argv[1])
     system_file = Path(sys.argv[2])
@@ -23,8 +23,7 @@ if __name__ == "__main__":
         access_rights = get_access_rights(system_description)
     
     patch_elf(target_elf, access_rights)
-     
-    
+
     
     
     

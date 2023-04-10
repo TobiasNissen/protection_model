@@ -12,6 +12,10 @@ classifiers = ["License :: OSI Approved :: MIT License"]
 dependencies = [
     "pathlib",
     "typing",
-    "dataclasses",
-    "xml"
+    "dataclasses"
 ]
+
+[project.scripts]
+sel4cp_set_up_access_rights = "protection_model.sel4cp.utilities.set_up_access_rights:set_up_access_rights"
+linux_set_up_access_rights = "protection_model.linux.utilities.set_up_access_rights:set_up_access_rights"
+

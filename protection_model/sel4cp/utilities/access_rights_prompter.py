@@ -5,8 +5,8 @@ from .system_parser import parse_system
 from .system_description import MemoryRegion, Channel, Map, Irq, ProtectionDomain, SystemDescription
 
 from ...base.access_right import AccessRight
-from ..sel4cp.access_rights import SchedulingAccessRight, ChannelAccessRight, MemoryRegionAccessRight, IrqAccessRight
-from ..sel4cp.constants import EXECUTABLE_FLAG, WRITABLE_FLAG, READABLE_FLAG, PAGE_SIZE
+from ..access_rights import SchedulingAccessRight, ChannelAccessRight, MemoryRegionAccessRight, IrqAccessRight
+from ..constants import EXECUTABLE_FLAG, WRITABLE_FLAG, READABLE_FLAG, PAGE_SIZE
 
 
 def get_int_in_range(parameter_name: str, min_value: int, max_value: int, default_value: Optional[int] = None, is_bool: bool = False) -> int:

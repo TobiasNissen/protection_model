@@ -364,7 +364,7 @@ syscalls_x86_64 = {
     "writev": 20,
 }
 
-if __name__ == '__main__':
+def set_up_access_rights():
     """
         Takes a target ELF program and a file with system call names separated by newlines
         and patches the targeted ELF program with an access right table that ensures
@@ -374,7 +374,7 @@ if __name__ == '__main__':
     """
     num_args = len(sys.argv)
     if num_args != 3:
-        print(f"Usage: python3 set_up_access_rights.py <target_ELF_file> <system_call_file>")
+        sys.exit(f"Usage: python3 set_up_access_rights.py <target_ELF_file> <system_call_file>")
 
     target_elf = Path(sys.argv[1])
     system_call_file = Path(sys.argv[2])

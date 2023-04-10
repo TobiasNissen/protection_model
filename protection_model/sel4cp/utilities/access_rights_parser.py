@@ -12,7 +12,7 @@ from .xml_utilities import LineNumberingParser, InvalidSystemFormat, InvalidXmlE
 
 from ...base.access_right import AccessRight
 from ..access_rights import SchedulingAccessRight, ChannelAccessRight, MemoryRegionAccessRight, IrqAccessRight, ProtectionDomainControlAccessRight
-from ..sel4cp.constants import EXECUTABLE_FLAG, WRITABLE_FLAG, READABLE_FLAG, PAGE_SIZE
+from ..constants import EXECUTABLE_FLAG, WRITABLE_FLAG, READABLE_FLAG, PAGE_SIZE
 
 
 def get_loader_pd(element: ET.Element, protection_domains: list[ProtectionDomain]) -> ProtectionDomain:
