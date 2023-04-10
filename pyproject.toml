@@ -10,5 +10,8 @@ authors = [{name = "Tobias Thornfeldt Nissen", email = "tobias.nissen@gmail.com"
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: MIT License"]
 dependencies = [
-    "pathlib"
+    "pathlib",
+    "typing",
+    "dataclasses",
+    "xml"
 ]

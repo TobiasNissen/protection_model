@@ -1,6 +1,6 @@
 from ..base.access_right import AccessRight
 from ..utilities.serialization import serialize_8_bit_int, serialize_64_bit_int
-from .constants import SCHEDULING_TYPE_ID, CHANNEL_TYPE_ID, MEMORY_REGION_TYPE_ID, IRQ_TYPE_ID
+from .constants import SCHEDULING_TYPE_ID, CHANNEL_TYPE_ID, MEMORY_REGION_TYPE_ID, IRQ_TYPE_ID, PROTECTION_DOMAIN_CONTROL_TYPE_ID
 
 
 class SeL4CPAccessRight(AccessRight):
@@ -16,7 +16,7 @@ class SchedulingAccessRight(SeL4CPAccessRight):
         self.budget = budget
         self.period = period
         
-    def serialize_metadata(self) -> bytes:
+    def serialize_metadata(self) -> bytes | None:
         return serialize_8_bit_int(self.priority) + \
                serialize_8_bit_int(self.mcp) + \
                serialize_64_bit_int(self.budget) + \
@@ -30,7 +30,7 @@ class ChannelAccessRight(SeL4CPAccessRight):
         self.target_pd_channel_id = target_pd_channel_id # the ID used by the targeted PD for the channel.
         self.own_channel_id = own_channel_id # the ID used by the current PD for the channel.
         
-    def serialize_metadata(self) -> bytes:
+    def serialize_metadata(self) -> bytes | None:
         return serialize_8_bit_int(self.target_pd_id) + \
                serialize_8_bit_int(self.target_pd_channel_id) + \
                serialize_8_bit_int(self.own_channel_id)
@@ -45,7 +45,7 @@ class MemoryRegionAccessRight(SeL4CPAccessRight):
         self.perms = perms
         self.cached = cached
     
-    def serialize_metadata(self) -> bytes:
+    def serialize_metadata(self) -> bytes | None:
         return serialize_64_bit_int(self.memory_region_page_cap_index) + \
                serialize_64_bit_int(self.vaddr) + \
                serialize_64_bit_int(self.size) + \
@@ -59,8 +59,16 @@ class IrqAccessRight(SeL4CPAccessRight):
         self.parent_irq_channel_id = parent_irq_channel_id
         self.own_irq_channel_id = own_irq_channel_id
         
-    def serialize_metadata(self) -> bytes:
+    def serialize_metadata(self) -> bytes | None:
         return serialize_8_bit_int(self.parent_irq_channel_id) + \
                serialize_8_bit_int(self.own_irq_channel_id)
+
+
+class ProtectionDomainControlAccessRight(SeL4CPAccessRight):
+    def __init__(self):
+        self.type_id = PROTECTION_DOMAIN_CONTROL_TYPE_ID
+       
+    def serialize_metadata(self) -> bytes | None:
+        return None
 
 
