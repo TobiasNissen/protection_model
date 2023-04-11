@@ -2,6 +2,11 @@
 This repository serves as the base for the protection models of different operating systems.
 Furthermore, utilities for patching ELF files with access rights are provided.
 
+The function `patch_elf` in the `protection_model/utilities
+/elf_patcher.py` file can be used to patch an ELF file with an access right table, given a list of access rights and a target ELF file.
+
+A protection model is provided for both Linux and the seL4 Core Platform (seL4CP) in the directories `protection_model/linux` and `protection_model/sel4cp`, respectively. For each of these operating systems, a utility script is included and exposed by this library, which allows ELF files to patched for each of these operating systems. These utility scripts are installed as `linux_set_up_access_rights` and `sel4cp_set_up_access_rights`, respectively, and they use the `patch_elf` function internally.
+
 # Build
 To build this repository as a Python package, run the command: 
 ```
